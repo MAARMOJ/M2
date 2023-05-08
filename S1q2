@@ -1,0 +1,79 @@
+2. Write a Java program to accept the details of Employee (Eno, EName, Designation, Salary) from a user and store it into the database. (Use Swing)
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.sql.*;
+public class Ass1 extends Frame implements ActionListener
+{
+JLabel l1,l2,l3;
+JTextField t1,t2,t3;
+JButton b;
+Connection cn;
+Statement st;
+ResultSet rs;
+public Ass1()
+{
+setLayout(null);
+l1=new JLabel(“Eno”);
+l2=new JLabel(“EName”);
+l3=new JLabel(“Salary”);
+t1=new JTextField();
+t2=new JTextField();
+t3=new JTextField();
+b=new Button(“Save”);
+l1.setBounds(50,50,100,30);
+t1.setBounds(160,50,100,30);
+l2.setBounds(50,90,100,30);
+t2.setBounds(160,90,100,30);
+l3.setBounds(50,130,100,30);
+t3.setBounds(160,130,100,30);
+b.setBounds(50,170,100,30);
+add(l1);
+add(t1);
+add(l2);
+add(t2);
+add(t3);
+add(b);
+b.addActionListener(this);
+setSize(500,500);
+setVisible(true);
+addWindowListener(new WindowAdapter()
+{
+public void windowClosing(WindowEvent e)
+{
+System.exit(0);
+}
+});
+}
+public void actionPerformed(ActionEvent oe)
+{
+String str=oe.getActionCommand();
+if(str.equals(“Save”))
+{
+try
+
+Class.forName(“org.postgresql.Driver”);
+cn=DriverManager.getConnection(“jdbc:postgresql:localhostmydb”,”root”,””);
+st =cn.createStatement();
+int en=Integer.parseInt(t1.getText());
+String enn=t2.getText();
+int sal=Integer.parseInt(t3.getText());
+String strr=”insert into emp values(” + en + ” ,'” + enn + “‘,” + sal + “)”;
+int k=st.executeUpdate(strr);
+if(k>0)
+{
+JOptionPane.showMessageDialog(null,”Record Is Added”);
+}
+}
+catch(Exception er)
+{
+System.out.println(“Error”);
+}
+}
+}
+public static void main(String args[])
+{
+new Ass1().show();
+}
+}
