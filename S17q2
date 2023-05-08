@@ -1,0 +1,63 @@
+Write a java program using Multithreading to display the number’s between 1 to 100 continuously in a JTextField by clicking on JButton. (Use Runnable Interface & Swing).
+
+import java.awt.event.*;
+import javax.swing.*;
+
+class Message implements Runnable
+{
+            JTextField t;
+            public void run()
+            {
+                        for(int i =1; i<=100;i++)
+                        {
+                                    t.setText(""+i);
+                                    try
+                                    {
+                                                Thread.sleep(50);
+                                    }
+                                    catch(Exception  e)
+                                    {
+                                                e.printStackTrace();
+                                    }
+                        }
+            }
+}
+class Slip12_1 implements ActionListener
+{
+            JFrame f;
+            JPanel p;
+            JTextField t;
+            JButton b;
+            Thread t1;
+
+            Slip12_1()
+            {
+                        f = new JFrame();
+                        p = new JPanel();
+
+                        t = new JTextField(60);
+                        b = new JButton("Start");
+
+                        t1 = new Thread(this);
+
+                        b.addActionListener(this);
+
+                        p.add(t);
+                        p.add(b);
+
+                        f.add(p);
+                        f.setSize(400, 400);
+                        f.setVisible(true);
+            }
+
+
+            public void actionPerformed(ActionEvent e)
+            {
+                        t1.start();
+            }   
+}
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
