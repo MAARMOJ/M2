@@ -1,0 +1,35 @@
+1.Write a JSP program to display the details of Patient (PNo, PName, Address, age, disease) in tabular form on browser.
+
+<html>
+<body>
+<%@ page import="java.sql.*;" %>
+<%! inthno;
+String hname,address; %>
+<%
+try{
+Connection cn
+Class.forName(“org.postgresql.Driver”);
+cn=DriverManager.getConnection(“jdbc:postgresql:localhosthospital”,”root”,””);
+Statement st=cn.createStatement();
+ResultSetrs=st.executeQuery("select * from patient");
+%>
+<table border="1" width="40%"> 
+<tr>
+ <td>Patient No</td> <td>Name</td> 
+<td>Address</td> </tr> 
+<% while(rs.next()) { %> 
+<tr><td><%= rs.getInt("pno") %></td> 
+<td><%= rs.getString("pname") %></td>
+ <td><%= rs.getString("address") %> </tr>
+<td><%= rs.getString(“age") %> </tr>
+<td><%= rs.getString("disease ") %> </tr>
+ <%
+}
+cn.close();
+}catch(Exception e)
+{
+out.println(e);
+}
+%>
+</body>
+</html>
